@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main page</title>
+    <meta content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Main page</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Main page</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <h1> List Messages</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/new}" class="btn btn-primary btn-sm mb-3">Add message</a>
+        </div>
+    </div>
+    <form method="post" action="/filter">
+        <label for="Tag">Filter by tag</label>
+        <input type="text" id="Tag" name="tag">
+        <button type="submit">Filter</button>
+    </form>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Message Id</th>
+            <th>Message text</th>
+            <th>Message tag</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message: ${messages}">
+            <td th:text="${message.getId()}"></td>
+            <td th:text="${message.getText()}"></td>
+            <td th:text="${message.getTag()}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${message.getId()})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/{id} (id=${message.getId()})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--
+<div>
+    <form th:method="POST"
+</div>
+<h1>Список сообщений</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Text</th>
+        <th>Tag</th>
+    </tr>
+    <tr th:each="mes : ${messages}">
+        <td th:text="${message.getId()}">Id</td>
+        <td th:text="${message.getText()}">Text</td>
+        <td th:text="${message.getTag()}">Tag</td>
+    </tr>
+</table>
+-->
+
+</body>
+</html>
